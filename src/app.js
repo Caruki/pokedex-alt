@@ -13,23 +13,22 @@ export function app() {
   });
   const main = createElement('main', { className: 'main' });
   const title = createTitle('MagicDex', { className: 'title' });
-  const search = createSearchInput();
+  const searchInput = createSearchInput();
 
   header.appendChild(title);
-  main.appendChild(search);
+  main.appendChild(searchInput);
 
-  const searchResults = createElement('div', {});
-  main.appendChild(searchResults);
+  let magicCards = createSearchResults(cardList);
+  main.appendChild(magicCards);
 
-  search.addEventListener('search', event => {
-    searchResults.innerHTML = '';
+  searchInput.addEventListener('search', event => {
+    main.removeChild(magicCards);
     const searchValue = event.target.value;
-
     const filteredCards = cardList.filter(card => {
       return card.startsWith(searchValue);
     });
-    const cardItem = createSearchResults(filteredCards);
-    searchResults.appendChild(cardItem);
+    magicCards = createSearchResults(filteredCards);
+    main.appendChild(magicCards);
   });
 
   return [header, main];
