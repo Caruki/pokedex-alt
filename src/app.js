@@ -3,6 +3,9 @@ import './components/search.scss';
 import { createElement } from './lib/dom';
 import { title } from './components/title';
 import { search } from './components/search';
+import { magicCards } from './components/search';
+
+const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
 
 export function app() {
   const header = createElement('header', {
@@ -15,12 +18,19 @@ export function app() {
   header.appendChild(titleElement);
   main.appendChild(searchElement);
 
-  const searchValue = createElement('div', { className: 'searchOutput' });
-  main.appendChild(searchValue);
+  // const magicCard = magicCards(['Nissa', 'Ajani', 'Archo', 'Eidolon']);
 
-  searchElement.addEventListener('search', () => {
-    searchValue.innerText = searchElement.value;
-  });
+  const resultList = magicCards(cardList);
+  main.appendChild(resultList);
+
+  // main.appendChild(searchResult);
+
+  // const searchValue = createElement('div', { className: 'searchOutput' });
+  // main.appendChild(searchValue);s
+
+  // searchElement.addEventListener('search', () => {
+  //   searchValue.innerText = searchElement.value;
+  // });
 
   return [header, main];
 }

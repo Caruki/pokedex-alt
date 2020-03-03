@@ -9,3 +9,16 @@ export function search() {
   });
   return element;
 }
+
+export function magicCards(cardList) {
+  const container = createElement('div', { className: 'listContainer' });
+  cardList.forEach(cardItem => {
+    const element = createElement('div', {
+      innerText: cardItem,
+      className: 'resultCard'
+    });
+
+    container.appendChild(element);
+  });
+  return container;
+}

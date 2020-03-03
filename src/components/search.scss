@@ -16,6 +16,12 @@
   }
 }
 
-.searchOutput {
+.listContainer {
   margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.resultCard {
+  margin: 10px;
 }
