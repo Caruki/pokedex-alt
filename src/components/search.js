@@ -1,5 +1,5 @@
 import './search.scss';
-import { createElement } from '../lib/dom';
+import { createElement, appendContent } from '../lib/dom';
 
 export function createSearchInput() {
   const element = createElement('input', {
@@ -18,7 +18,7 @@ export function createSearchResults(cardList) {
       className: 'resultItem'
     });
 
-    container.appendChild(element);
+    appendContent(container, element);
   });
   return container;
 }
