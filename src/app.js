@@ -18,19 +18,19 @@ export function app() {
   header.appendChild(titleElement);
   main.appendChild(searchElement);
 
-  // const magicCard = magicCards(['Nissa', 'Ajani', 'Archo', 'Eidolon']);
+  const searchResults = createElement('div', {});
+  main.appendChild(searchResults);
 
-  const resultList = magicCards(cardList);
-  main.appendChild(resultList);
+  searchElement.addEventListener('search', event => {
+    searchResults.innerHTML = '';
+    const searchValue = event.target.value;
 
-  // main.appendChild(searchResult);
-
-  // const searchValue = createElement('div', { className: 'searchOutput' });
-  // main.appendChild(searchValue);s
-
-  // searchElement.addEventListener('search', () => {
-  //   searchValue.innerText = searchElement.value;
-  // });
+    const filteredCards = cardList.filter(card => {
+      return card.startsWith(searchValue);
+    });
+    const cardItem = magicCards(filteredCards);
+    searchResults.appendChild(cardItem);
+  });
 
   return [header, main];
 }
