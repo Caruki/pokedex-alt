@@ -1,4 +1,5 @@
 import './app.scss';
+import './components/search.scss';
 import { createElement } from './lib/dom';
 import { title } from './components/title';
 import { search } from './components/search';
@@ -13,6 +14,13 @@ export function app() {
 
   header.appendChild(titleElement);
   main.appendChild(searchElement);
+
+  const searchValue = createElement('div', { className: 'searchOutput' });
+  main.appendChild(searchValue);
+
+  searchElement.addEventListener('search', () => {
+    searchValue.innerText = searchElement.value;
+  });
 
   return [header, main];
 }
