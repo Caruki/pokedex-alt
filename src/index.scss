@@ -1,5 +1,14 @@
-$body-color: red;
+// @use './theme';  theme für variablen
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 
 body {
-  color: $body-color;
+  margin: 0;
+  background-image: linear-gradient(to top right, #243949, #517fa4);
+  font-size: 17px;
+  height: 100vh;
 }
