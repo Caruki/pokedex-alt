@@ -1,9 +1,9 @@
 import './app.scss';
 import './components/search.scss';
 import { createElement } from './lib/dom';
-import { title } from './components/title';
-import { search } from './components/search';
-import { magicCards } from './components/search';
+import { createTitle } from './components/title';
+import { createSearchInput } from './components/search';
+import { createSearchResults } from './components/search';
 
 const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
 
@@ -12,23 +12,23 @@ export function app() {
     className: 'header'
   });
   const main = createElement('main', { className: 'main' });
-  const titleElement = title('MagicDex', { className: 'title' });
-  const searchElement = search();
+  const title = createTitle('MagicDex', { className: 'title' });
+  const search = createSearchInput();
 
-  header.appendChild(titleElement);
-  main.appendChild(searchElement);
+  header.appendChild(title);
+  main.appendChild(search);
 
   const searchResults = createElement('div', {});
   main.appendChild(searchResults);
 
-  searchElement.addEventListener('search', event => {
+  search.addEventListener('search', event => {
     searchResults.innerHTML = '';
     const searchValue = event.target.value;
 
     const filteredCards = cardList.filter(card => {
       return card.startsWith(searchValue);
     });
-    const cardItem = magicCards(filteredCards);
+    const cardItem = createSearchResults(filteredCards);
     searchResults.appendChild(cardItem);
   });
 
