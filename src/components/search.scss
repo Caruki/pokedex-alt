@@ -1,3 +1,17 @@
+//import './theme';
+
 .search {
-  background: blueviolet;
+  background: none;
+  border: none;
+  border: 1px solid rgb(76, 76, 119);
+  width: 180px;
+  padding-bottom: 4px;
+  text-align: center;
+  outline: none;
+  height: 40px;
+  font-size: 0.8rem;
+
+  &::placeholder {
+    color: rgb(59, 51, 73);
+  }
 }
