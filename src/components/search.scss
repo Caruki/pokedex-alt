@@ -20,8 +20,15 @@
   margin: 20px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .resultItem {
-  margin: 10px;
+  margin: 20px;
+  font-size: 1rem;
+  text-align: center;
+  border: 2px solid rgb(15, 15, 34);
+  padding: 10px;
+  border-radius: 0.4rem;
+  background: rgb(74, 133, 189);
 }
