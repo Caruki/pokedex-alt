@@ -13,7 +13,8 @@ export function app() {
   });
   const main = createElement('main', { className: 'main' });
   const title = createTitle('MagicDex', { className: 'title' });
-  const searchInput = createSearchInput();
+  // const searchValueInput = sessionStorage.getItem('searchValue');
+  const searchInput = createSearchInput(sessionStorage.getItem('searchValue'));
   const logo = createElement('img', { src: Logo, className: 'logo' });
   let magicCards = createSearchResults(cardList);
 
@@ -22,14 +23,17 @@ export function app() {
 
   searchInput.addEventListener('input', event => {
     main.removeChild(magicCards);
-    const searchValue = event.target.value.toLowerCase();
+    const searchValue = event.target.value;
+    const lowerCaseSearchValue = event.target.value.toLowerCase();
     const filteredCards = cardList.filter(card => {
       if (searchValue.length > 0) {
-        return card.toLowerCase().includes(searchValue);
+        return card.toLowerCase().includes(lowerCaseSearchValue);
       }
     });
     magicCards = createSearchResults(filteredCards);
     appendContent(main, magicCards);
+    sessionStorage.setItem('searchValue', searchValue);
+    // console.log(sessionStorage.getItem('searchValue'));
   });
 
   return [header, main];
