@@ -10,5 +10,8 @@ body {
   margin: 0;
   background-image: linear-gradient(to top right, #243949, #517fa4);
   font-size: 17px;
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
 }

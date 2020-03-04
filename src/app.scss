@@ -12,8 +12,10 @@
 
 .main {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   align-items: center;
+  overflow: auto;
+  flex-grow: 1;
 }
 
 .logo {
