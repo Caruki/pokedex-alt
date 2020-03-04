@@ -1,9 +1,8 @@
 import './app.scss';
 import './components/search.scss';
-import { createElement } from './lib/dom';
+import { createElement, appendContent } from './lib/dom';
 import { createTitle } from './components/title';
 import { createSearchInput, createSearchResults } from './components/search';
-import { appendContent } from './lib/dom';
 
 const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
 
