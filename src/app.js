@@ -1,9 +1,8 @@
 import './app.scss';
 import './components/search.scss';
-import { createElement } from './lib/dom';
-import { title } from './components/title';
-import { search } from './components/search';
-import { magicCards } from './components/search';
+import { createElement, appendContent } from './lib/dom';
+import { createTitle } from './components/title';
+import { createSearchInput, createSearchResults } from './components/search';
 
 const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
 
@@ -12,24 +11,21 @@ export function app() {
     className: 'header'
   });
   const main = createElement('main', { className: 'main' });
-  const titleElement = title('MagicDex', { className: 'title' });
-  const searchElement = search();
+  const title = createTitle('MagicDex', { className: 'title' });
+  const searchInput = createSearchInput();
+  let magicCards = createSearchResults(cardList);
 
-  header.appendChild(titleElement);
-  main.appendChild(searchElement);
+  appendContent(header, [title]);
+  appendContent(main, [searchInput, magicCards]);
 
-  const searchResults = createElement('div', {});
-  main.appendChild(searchResults);
-
-  searchElement.addEventListener('search', event => {
-    searchResults.innerHTML = '';
+  searchInput.addEventListener('search', event => {
+    main.removeChild(magicCards);
     const searchValue = event.target.value;
-
     const filteredCards = cardList.filter(card => {
       return card.startsWith(searchValue);
     });
-    const cardItem = magicCards(filteredCards);
-    searchResults.appendChild(cardItem);
+    magicCards = createSearchResults(filteredCards);
+    appendContent(main, magicCards);
   });
 
   return [header, main];

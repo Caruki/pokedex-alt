@@ -1,7 +1,7 @@
 import './search.scss';
-import { createElement } from '../lib/dom';
+import { createElement, appendContent } from '../lib/dom';
 
-export function search() {
+export function createSearchInput() {
   const element = createElement('input', {
     type: 'search',
     className: 'search',
@@ -10,15 +10,15 @@ export function search() {
   return element;
 }
 
-export function magicCards(cardList) {
+export function createSearchResults(cardList) {
   const container = createElement('div', { className: 'listContainer' });
   cardList.forEach(cardItem => {
     const element = createElement('div', {
       innerText: cardItem,
-      className: 'resultCard'
+      className: 'resultItem'
     });
 
-    container.appendChild(element);
+    appendContent(container, element);
   });
   return container;
 }
