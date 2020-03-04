@@ -19,6 +19,12 @@ export function createSearchResults(cardList) {
       innerText: cardItem,
       className: 'resultItem'
     });
+    element.addEventListener('click', () => {
+      const favourites = [cardItem];
+      localStorage.setItem('favourites', JSON.stringify(favourites));
+    });
+
+    // console.log(event.target.innerText)
 
     appendContent(container, element);
   });
