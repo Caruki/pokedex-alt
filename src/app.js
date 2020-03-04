@@ -1,9 +1,8 @@
 import './app.scss';
 import './components/search.scss';
-import { createElement } from './lib/dom';
+import { createElement, appendContent } from './lib/dom';
 import { createTitle } from './components/title';
-import { createSearchInput } from './components/search';
-import { createSearchResults } from './components/search';
+import { createSearchInput, createSearchResults } from './components/search';
 
 const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
 
@@ -14,12 +13,10 @@ export function app() {
   const main = createElement('main', { className: 'main' });
   const title = createTitle('MagicDex', { className: 'title' });
   const searchInput = createSearchInput();
-
-  header.appendChild(title);
-  main.appendChild(searchInput);
-
   let magicCards = createSearchResults(cardList);
-  main.appendChild(magicCards);
+
+  appendContent(header, [title]);
+  appendContent(main, [searchInput, magicCards]);
 
   searchInput.addEventListener('search', event => {
     main.removeChild(magicCards);
@@ -28,7 +25,7 @@ export function app() {
       return card.startsWith(searchValue);
     });
     magicCards = createSearchResults(filteredCards);
-    main.appendChild(magicCards);
+    appendContent(main, magicCards);
   });
 
   return [header, main];
