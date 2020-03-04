@@ -5,10 +5,18 @@
   margin: 30px;
   font-family: 'Trade Winds', cursive;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+}
+
+.logo {
+  width: 60px;
+  margin: 20px;
 }
