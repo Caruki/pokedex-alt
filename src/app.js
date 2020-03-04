@@ -20,11 +20,13 @@ export function app() {
   appendContent(header, [logo, title]);
   appendContent(main, [searchInput, magicCards]);
 
-  searchInput.addEventListener('search', event => {
+  searchInput.addEventListener('input', event => {
     main.removeChild(magicCards);
-    const searchValue = event.target.value;
+    const searchValue = event.target.value.toLowerCase();
     const filteredCards = cardList.filter(card => {
-      return card.startsWith(searchValue);
+      if (searchValue.length > 0) {
+        return card.toLowerCase().includes(searchValue);
+      }
     });
     magicCards = createSearchResults(filteredCards);
     appendContent(main, magicCards);
