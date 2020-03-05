@@ -20,7 +20,9 @@ export function app() {
   let magicCards = null;
 
   function setSearchResults() {
-    magicCards = createSearchResults(filterResults(searchInput.value));
+    magicCards = createSearchResults({
+      results: filterResults(searchInput.value)
+    });
     appendContent(main, magicCards);
   }
   setSearchResults();
