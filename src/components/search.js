@@ -14,10 +14,8 @@ export function createSearchInput(props) {
 }
 
 function addtoFavourites(item) {
-  //get Array from localStorage to compare
   let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
 
-  //check if item is in Array
   if (!favourites.includes(item)) {
     favourites.push(item);
   } else {
@@ -26,8 +24,10 @@ function addtoFavourites(item) {
       favourites.splice(itemIndex, 1);
     }
   }
+  if (favourites.length > 40) {
+    favourites = favourites.splice(0, 1);
+  }
 
-  //set up Array in localStorage with new item
   localStorage.setItem('favourites', JSON.stringify(favourites));
 }
 
