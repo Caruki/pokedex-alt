@@ -54,6 +54,7 @@
   &:hover {
     background: linear-gradient(to bottom, #4c55a5 5%, #252963 100%);
     background-color: #424a92;
+    cursor: pointer;
   }
   &:active {
     position: relative;
@@ -81,6 +82,7 @@
 
   &:hover {
     background-color: rgb(142, 163, 221);
+    cursor: pointer;
   }
 
   &:active {
