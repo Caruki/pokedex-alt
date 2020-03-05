@@ -35,7 +35,8 @@ export function app() {
   // showButton.addEventListener('click', () => {});
 
   appendContent(header, [logo, title]);
-  appendContent(main, [searchInput, showButton, magicCards]);
+  appendContent(main, [searchInput, magicCards]);
+  appendContent(searchInput, showButton);
 
   searchInput.firstElementChild.addEventListener('input', event => {
     main.removeChild(magicCards);

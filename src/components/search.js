@@ -34,8 +34,8 @@ function addtoFavourites(item) {
 export function createShowAllButton() {
   const element = createElement('button', {
     type: 'button',
-    innerHTML: 'Show All'
-    //className: 'showAllButton'
+    innerHTML: 'Show All',
+    className: 'showAllButton'
   });
   return element;
 }
