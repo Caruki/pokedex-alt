@@ -15,7 +15,7 @@ export function app() {
     className: 'header'
   });
   const main = createElement('main', { className: 'main' });
-  const title = createTitle('MagicDex', { className: 'title' });
+  const title = createTitle('MagicDex');
   const searchInput = createSearchInput({
     value: sessionStorage.getItem('searchValue')
   });
