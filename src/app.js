@@ -7,7 +7,7 @@ import {
   createSearchResults,
   createShowAllButton
 } from './components/search';
-import { filterResults } from './lib/results';
+import { filterResults, cardList } from './lib/results';
 import Logo from './assets/logo.svg';
 
 export function app() {
@@ -32,8 +32,6 @@ export function app() {
   }
   setSearchResults();
 
-  // showButton.addEventListener('click', () => {});
-
   appendContent(header, [logo, title]);
   appendContent(main, [searchInput, magicCards]);
   appendContent(searchInput, showButton);
@@ -44,6 +42,15 @@ export function app() {
 
     const searchValue = event.target.value;
     sessionStorage.setItem('searchValue', searchValue);
+  });
+
+  showButton.addEventListener('click', () => {
+    main.removeChild(magicCards);
+    searchInput.firstElementChild.value = '';
+    magicCards = createSearchResults({
+      results: cardList
+    });
+    appendContent(main, magicCards);
   });
 
   return [header, main];
