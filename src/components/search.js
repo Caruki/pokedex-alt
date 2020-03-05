@@ -11,6 +11,15 @@ export function createSearchInput(props) {
   return element;
 }
 
+export function createShowAllButton() {
+  const element = createElement('button', {
+    type: 'button',
+    innerHTML: 'Show All'
+    //className: 'showAllButton'
+  });
+  return element;
+}
+
 export function createSearchResults(cardList) {
   const container = createElement('div', { className: 'listContainer' });
 

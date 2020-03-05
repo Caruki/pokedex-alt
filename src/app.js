@@ -2,7 +2,11 @@ import './app.scss';
 import './components/search.scss';
 import { createElement, appendContent } from './lib/dom';
 import { createTitle } from './components/title';
-import { createSearchInput, createSearchResults } from './components/search';
+import {
+  createSearchInput,
+  createSearchResults,
+  createShowAllButton
+} from './components/search';
 import { filterResults } from './lib/results';
 import Logo from './assets/logo.svg';
 
@@ -16,6 +20,7 @@ export function app() {
     value: sessionStorage.getItem('searchValue')
   });
   const logo = createElement('img', { src: Logo, className: 'logo' });
+  const showButton = createShowAllButton();
 
   let magicCards = null;
 
@@ -25,8 +30,10 @@ export function app() {
   }
   setSearchResults();
 
+  // showButton.addEventListener('click', () => {});
+
   appendContent(header, [logo, title]);
-  appendContent(main, [searchInput, magicCards]);
+  appendContent(main, [searchInput, showButton, magicCards]);
 
   searchInput.addEventListener('input', event => {
     main.removeChild(magicCards);
