@@ -11,7 +11,7 @@ export function createSearchInput(props) {
   return element;
 }
 
-function addtoFav(item) {
+function addtoFavourites(item) {
   //get Array from localStorage to compare
   let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
 
@@ -37,7 +37,7 @@ export function createSearchResults(props) {
       innerText: item,
       className: 'resultItem'
     });
-    element.addEventListener('click', () => addtoFav(element.innerText));
+    element.addEventListener('click', () => addtoFavourites(element.innerText));
 
     appendContent(container, element);
   });
