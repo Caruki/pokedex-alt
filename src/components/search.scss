@@ -78,4 +78,12 @@
   padding: 10px;
   border-radius: 0.4rem;
   background: rgb(74, 133, 189);
+
+  &:hover {
+    background-color: rgb(142, 163, 221);
+  }
+
+  &:active {
+    background-color: rgb(72, 39, 192);
+  }
 }
