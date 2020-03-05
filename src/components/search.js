@@ -31,6 +31,15 @@ function addtoFavourites(item) {
   localStorage.setItem('favourites', JSON.stringify(favourites));
 }
 
+export function createShowAllButton() {
+  const element = createElement('button', {
+    type: 'button',
+    innerHTML: 'Show All',
+    className: 'showAllButton'
+  });
+  return element;
+}
+
 export function createSearchResults(props) {
   const container = createElement('div', { className: 'listContainer' });
 

@@ -10,7 +10,7 @@ export function filterResults(searchValue) {
   return filteredResults;
 }
 
-const cardList = [
+export const cardList = [
   'Akroma, Angel of Fury',
   'Akroma, Angel of Wrath',
   'Alexi, Zephyr Mage',
