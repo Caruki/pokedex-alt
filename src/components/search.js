@@ -13,24 +13,6 @@ export function createSearchInput(props) {
   return container;
 }
 
-function addtoFavourites(item) {
-  //get Array from localStorage to compare
-  let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-
-  //check if item is in Array
-  if (!favourites.includes(item)) {
-    favourites.push(item);
-  } else {
-    let itemIndex = favourites.indexOf(item);
-    if (itemIndex > -1) {
-      favourites.splice(itemIndex, 1);
-    }
-  }
-
-  //set up Array in localStorage with new item
-  localStorage.setItem('favourites', JSON.stringify(favourites));
-}
-
 export function createShowAllButton() {
   const element = createElement('button', {
     type: 'button',
@@ -48,7 +30,7 @@ export function createSearchResults(props) {
       innerText: item,
       className: 'resultItem'
     });
-    element.addEventListener('click', () => addtoFavourites(element.innerText));
+    element.addEventListener('click', () => props.onSearchResultClick(item));
 
     appendContent(container, element);
   });

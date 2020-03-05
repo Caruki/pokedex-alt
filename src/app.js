@@ -9,6 +9,7 @@ import {
 } from './components/search';
 import { filterResults, cardList } from './lib/results';
 import Logo from './assets/logo.svg';
+import { createFavouriteList, addToFavourites } from './components/favourites';
 
 export function app() {
   const header = createElement('header', {
@@ -21,23 +22,37 @@ export function app() {
   });
   const logo = createElement('img', { src: Logo, className: 'logo' });
   const showButton = createShowAllButton();
+  const favouriteListContainer = createElement('div');
+  let favouriteList = createFavouriteList({
+    items: JSON.parse(localStorage.getItem('favourites')) || []
+  });
+  appendContent(favouriteListContainer, favouriteList);
 
-  let magicCards = null;
+  function updateFavouriteList(item) {
+    addToFavourites(item);
+    favouriteListContainer.removeChild(favouriteList);
+    favouriteList = createFavouriteList({
+      items: JSON.parse(localStorage.getItem('favourites')) || []
+    });
+    appendContent(favouriteListContainer, favouriteList);
+  }
+  let cards = null;
 
   function setSearchResults() {
-    magicCards = createSearchResults({
-      results: filterResults(searchInput.firstElementChild.value)
+    cards = createSearchResults({
+      results: filterResults(searchInput.firstElementChild.value),
+      onSearchResultClick: updateFavouriteList
     });
-    appendContent(main, magicCards);
+    appendContent(main, cards);
   }
   setSearchResults();
 
   appendContent(header, [logo, title]);
-  appendContent(main, [searchInput, magicCards]);
+  appendContent(main, [searchInput, favouriteListContainer, cards]);
   appendContent(searchInput, showButton);
 
   searchInput.firstElementChild.addEventListener('input', event => {
-    main.removeChild(magicCards);
+    main.removeChild(cards);
     setSearchResults();
 
     const searchValue = event.target.value;
@@ -45,12 +60,12 @@ export function app() {
   });
 
   showButton.addEventListener('click', () => {
-    main.removeChild(magicCards);
+    main.removeChild(cards);
     searchInput.firstElementChild.value = '';
-    magicCards = createSearchResults({
+    cards = createSearchResults({
       results: cardList
     });
-    appendContent(main, magicCards);
+    appendContent(main, cards);
   });
 
   return [header, main];

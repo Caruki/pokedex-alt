@@ -1,0 +1,19 @@
+.favouriteListContainer {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: space-around;
+  background-color: rgb(105, 105, 202);
+  margin-right: 10px;
+  padding: 10px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.favouriteCard {
+  margin: 20px;
+  text-align: center;
+  border: 2px solid rgba(15, 15, 34, 0.61);
+  padding: 10px;
+  border-radius: 0.4rem;
+  background: rgb(74, 133, 189);
+}

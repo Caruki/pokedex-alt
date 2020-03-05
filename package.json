@@ -1,7 +1,7 @@
 {
   "name": "pokedex-alt",
   "version": "1.0.0",
-  "description": "Pokedex",
+  "description": "MagicDex",
   "private": true,
   "scripts": {
     "test": "eslint --ext .js src/",
