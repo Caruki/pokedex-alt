@@ -20,9 +20,9 @@ export function app() {
   let magicCards = null;
 
   function setSearchResults() {
-    magicCards = createSearchResults({
-      results: filterResults(searchInput.value)
-    });
+    magicCards = createSearchResults(
+      filterResults(searchInput.firstElementChild.value)
+    );
     appendContent(main, magicCards);
   }
   setSearchResults();
@@ -30,7 +30,7 @@ export function app() {
   appendContent(header, [logo, title]);
   appendContent(main, [searchInput, magicCards]);
 
-  searchInput.addEventListener('input', event => {
+  searchInput.firstElementChild.addEventListener('input', event => {
     main.removeChild(magicCards);
     setSearchResults();
 
