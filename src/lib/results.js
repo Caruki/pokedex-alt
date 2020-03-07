@@ -1,15 +1,26 @@
-// const cardList = ['Nissa', 'Ajani', 'Archon', 'Eidolon'];
+export async function getMagicCards() {
+  const response = await fetch(
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Athb&unique=prints'
+  );
+  const results = await response.json();
+  const magicCards = results.data;
+  const magicCardNames = magicCards.map(magicCard => {
+    return magicCard.name;
+  });
+  return magicCardNames;
+}
 
-export function filterResults(searchValue) {
+export async function filterResults(searchValue) {
   const lowerCaseSearchValue = searchValue.toLowerCase();
-  const filteredResults = cardList.filter(item => {
+  const allCards = await getMagicCards();
+  const filteredResults = allCards.filter(item => {
     if (searchValue.length > 0) {
       return item.toLowerCase().includes(lowerCaseSearchValue);
     }
   });
   return filteredResults;
 }
-
+/*
 export const cardList = [
   'Akroma, Angel of Fury',
   'Akroma, Angel of Wrath',
@@ -171,3 +182,4 @@ export const cardList = [
   'Yeva, Natures Herald',
   'Zedruu the Greathearted'
 ];
+*/
