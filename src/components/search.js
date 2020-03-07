@@ -30,7 +30,9 @@ export function createSearchResults(props) {
       innerText: item,
       className: 'resultItem'
     });
-    element.addEventListener('click', () => props.onSearchResultClick(item));
+    element.addEventListener('click', () => {
+      props.onSearchResultClick(item);
+    });
 
     appendContent(container, element);
   });

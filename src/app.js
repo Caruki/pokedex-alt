@@ -7,7 +7,7 @@ import {
   createSearchResults,
   createShowAllButton
 } from './components/search';
-import { filterResults, cardList } from './lib/results';
+import { filterResults, getMagicCards } from './lib/results';
 import Logo from './assets/logo.svg';
 import { createFavouriteList, addToFavourites } from './components/favourites';
 
@@ -36,36 +36,45 @@ export function app() {
     });
     appendContent(favouriteListContainer, favouriteList);
   }
-  let cards = null;
+  let searchResults = null;
 
-  function setSearchResults() {
-    cards = createSearchResults({
-      results: filterResults(searchInput.firstElementChild.value),
+  async function setSearchResults() {
+    const filteredCards = await filterResults(
+      searchInput.firstElementChild.value
+    );
+    searchResults = createSearchResults({
+      results: filteredCards,
       onSearchResultClick: updateFavouriteList
     });
-    appendContent(main, cards);
+    console.log('searchResults: ', typeof searchResults);
+    appendContent(main, searchResults);
   }
   setSearchResults();
 
   appendContent(header, [logo, title]);
-  appendContent(main, [searchInput, favouriteListContainer, cards]);
+  appendContent(main, [searchInput, favouriteListContainer]);
   appendContent(searchInput, showButton);
 
   searchInput.firstElementChild.addEventListener('input', event => {
-    main.removeChild(cards);
+    console.log('Search Results:', typeof searchResults);
+
+    main.removeChild(searchResults);
     setSearchResults();
 
     const searchValue = event.target.value;
     sessionStorage.setItem('searchValue', searchValue);
   });
 
-  showButton.addEventListener('click', () => {
-    main.removeChild(cards);
+  showButton.addEventListener('click', async () => {
+    if (searchResults) {
+      main.removeChild(searchResults);
+    }
     searchInput.firstElementChild.value = '';
-    cards = createSearchResults({
-      results: cardList
+    searchResults = createSearchResults({
+      results: await getMagicCards(),
+      onSearchResultClick: updateFavouriteList
     });
-    appendContent(main, cards);
+    appendContent(main, searchResults);
   });
 
   return [header, main];
