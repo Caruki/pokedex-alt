@@ -69,12 +69,14 @@
 }
 
 .listContainer {
-  margin: 20px;
+  padding: 10px;
+  margin: 10px;
   display: flex;
   flex-grow: 3;
   justify-content: center;
   flex-flow: row wrap;
   overflow: auto;
+  flex-shrink: 0;
 }
 
 .resultItem {
