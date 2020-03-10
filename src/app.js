@@ -27,7 +27,9 @@ export function app() {
   let favouriteList = createFavouriteList({
     items: JSON.parse(localStorage.getItem('favourites')) || []
   });
-  appendContent(wrapContainer, [favouriteListContainer, favouriteList]);
+
+  appendContent(favouriteListContainer, favouriteList);
+  appendContent(wrapContainer, favouriteListContainer);
 
   function updateFavouriteList(item) {
     addToFavourites(item);
@@ -36,7 +38,7 @@ export function app() {
       items: JSON.parse(localStorage.getItem('favourites')) || []
     });
     appendContent(favouriteListContainer, favouriteList);
-    appendContent(wrapContainer, favouriteListContainer);
+    //appendContent(wrapContainer, favouriteListContainer);
   }
   appendContent(header, [logo, title]);
   appendContent(main, [searchInput, wrapContainer]);
@@ -48,9 +50,8 @@ export function app() {
     const loading = createElement('div', { innerText: 'Loading...' });
     appendContent(main, loading);
     try {
-      console.log(searchResults);
       if (searchResults) {
-        main.removeChild(searchResults);
+        wrapContainer.removeChild(searchResults);
         searchResults = null;
       }
 
