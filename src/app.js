@@ -7,7 +7,7 @@ import {
   createSearchResults,
   createShowAllButton
 } from './components/search';
-import { filterResults, getMagicCards } from './lib/results';
+import { filterResults } from './lib/results';
 import Logo from './assets/logo.svg';
 import { createFavouriteList, addToFavourites } from './components/favourites';
 
@@ -21,12 +21,15 @@ export function app() {
     value: sessionStorage.getItem('searchValue')
   });
   const logo = createElement('img', { src: Logo, className: 'logo' });
-  const showButton = createShowAllButton();
+  const showAllButton = createShowAllButton();
+  const wrapContainer = createElement('div', { className: 'wrapper' });
   const favouriteListContainer = createElement('div');
   let favouriteList = createFavouriteList({
     items: JSON.parse(localStorage.getItem('favourites')) || []
   });
+
   appendContent(favouriteListContainer, favouriteList);
+  appendContent(wrapContainer, favouriteListContainer);
 
   function updateFavouriteList(item) {
     addToFavourites(item);
@@ -35,47 +38,55 @@ export function app() {
       items: JSON.parse(localStorage.getItem('favourites')) || []
     });
     appendContent(favouriteListContainer, favouriteList);
+    //appendContent(wrapContainer, favouriteListContainer);
   }
+  appendContent(header, [logo, title]);
+  appendContent(main, [searchInput, wrapContainer]);
+  appendContent(searchInput, showAllButton);
+
   let searchResults = null;
 
   async function setSearchResults() {
-    const filteredCards = await filterResults(
-      searchInput.firstElementChild.value
-    );
-    searchResults = createSearchResults({
-      results: filteredCards,
-      onSearchResultClick: updateFavouriteList
-    });
-    console.log('searchResults: ', typeof searchResults);
-    appendContent(main, searchResults);
+    const loading = createElement('div', { innerText: 'Loading...' });
+    appendContent(main, loading);
+    try {
+      if (searchResults) {
+        wrapContainer.removeChild(searchResults);
+        searchResults = null;
+      }
+
+      const filteredCards = await filterResults(
+        searchInput.firstElementChild.value
+      );
+      searchResults = createSearchResults({
+        results: filteredCards,
+        onSearchResultClick: updateFavouriteList
+      });
+
+      appendContent(wrapContainer, searchResults);
+    } catch (error) {
+      console.error(error);
+      const errorMessage = createElement('div', {
+        innerText: 'Error: ' + error.message
+      });
+      appendContent(main, errorMessage);
+    } finally {
+      main.removeChild(loading);
+    }
   }
   setSearchResults();
 
-  appendContent(header, [logo, title]);
-  appendContent(main, [searchInput, favouriteListContainer]);
-  appendContent(searchInput, showButton);
-
   searchInput.firstElementChild.addEventListener('input', event => {
-    console.log('Search Results:', typeof searchResults);
-
-    main.removeChild(searchResults);
     setSearchResults();
 
     const searchValue = event.target.value;
     sessionStorage.setItem('searchValue', searchValue);
   });
 
-  showButton.addEventListener('click', async () => {
-    if (searchResults) {
-      main.removeChild(searchResults);
-    }
+  //buttons
+  showAllButton.addEventListener('click', async () => {
     searchInput.firstElementChild.value = '';
-    searchResults = createSearchResults({
-      results: await getMagicCards(),
-      onSearchResultClick: updateFavouriteList
-    });
-    appendContent(main, searchResults);
+    setSearchResults();
   });
-
   return [header, main];
 }
