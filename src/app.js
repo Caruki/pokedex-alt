@@ -2,14 +2,11 @@ import './app.scss';
 import './components/search.scss';
 import { createElement, appendContent } from './lib/dom';
 import { createTitle } from './components/title';
-import {
-  createSearchInput,
-  createSearchResults,
-  createShowAllButton
-} from './components/search';
+import { createSearchInput, createShowAllButton } from './components/search';
 import { filterResults } from './lib/results';
 import Logo from './assets/logo.svg';
 import { createFavouriteList, addToFavourites } from './components/favourites';
+import { createSearchResults } from './components/searchresults';
 
 export function app() {
   const header = createElement('header', {
@@ -23,13 +20,18 @@ export function app() {
   const logo = createElement('img', { src: Logo, className: 'logo' });
   const showAllButton = createShowAllButton();
   const wrapContainer = createElement('div', { className: 'wrapper' });
-  const favouriteListContainer = createElement('div');
+  const favouriteListContainer = createElement('div', {
+    className: 'favouriteListContainerWrapper'
+  });
   let favouriteList = createFavouriteList({
     items: JSON.parse(localStorage.getItem('favourites')) || []
   });
+  const listContainerWrapper = createElement('div', {
+    className: 'listContainerWrapper'
+  });
 
   appendContent(favouriteListContainer, favouriteList);
-  appendContent(wrapContainer, favouriteListContainer);
+  appendContent(wrapContainer, [favouriteListContainer, listContainerWrapper]);
 
   function updateFavouriteList(item) {
     addToFavourites(item);
@@ -48,10 +50,10 @@ export function app() {
 
   async function setSearchResults() {
     const loading = createElement('div', { innerText: 'Loading...' });
-    appendContent(main, loading);
+    appendContent(listContainerWrapper, loading);
     try {
       if (searchResults) {
-        wrapContainer.removeChild(searchResults);
+        listContainerWrapper.removeChild(searchResults);
         searchResults = null;
       }
 
@@ -63,7 +65,7 @@ export function app() {
         onSearchResultClick: updateFavouriteList
       });
 
-      appendContent(wrapContainer, searchResults);
+      appendContent(listContainerWrapper, searchResults);
     } catch (error) {
       console.error(error);
       const errorMessage = createElement('div', {
@@ -71,7 +73,7 @@ export function app() {
       });
       appendContent(main, errorMessage);
     } finally {
-      main.removeChild(loading);
+      listContainerWrapper.removeChild(loading);
     }
   }
   setSearchResults();
