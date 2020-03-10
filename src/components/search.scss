@@ -71,7 +71,7 @@
 .listContainer {
   margin: 20px;
   display: flex;
-
+  flex-grow: 3;
   justify-content: center;
   flex-flow: row wrap;
   overflow: auto;

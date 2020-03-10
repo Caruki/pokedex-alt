@@ -2,11 +2,13 @@
   display: flex;
   flex-flow: row wrap;
   align-items: space-around;
-  background-color: rgb(105, 105, 202);
+  background-color: rgba(186, 186, 231, 0.658);
+  border-radius: 50px;
   margin-right: 10px;
   padding: 10px;
   max-height: 200px;
   overflow: auto;
+  flex-grow: 1;
 }
 
 .favouriteCard {
