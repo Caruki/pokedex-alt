@@ -2,9 +2,10 @@
 
 .header {
   height: 40px;
-  margin: 30px;
+  margin: 10px;
+  margin-bottom: 20px;
   font-family: 'Trade Winds', cursive;
-  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,4 +22,14 @@
 .logo {
   width: 60px;
   margin: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+  margin: 10px;
+  width: 100%;
 }

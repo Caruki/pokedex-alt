@@ -67,30 +67,3 @@
     background-color: #bcc2f0;
   }
 }
-
-.listContainer {
-  margin: 20px;
-  display: flex;
-
-  justify-content: center;
-  flex-flow: row wrap;
-  overflow: auto;
-}
-
-.resultItem {
-  margin: 20px;
-  text-align: center;
-  border: 2px solid rgba(15, 15, 34, 0.61);
-  padding: 10px;
-  border-radius: 0.4rem;
-  background: rgb(74, 133, 189);
-
-  &:hover {
-    background-color: rgb(142, 163, 221);
-    cursor: pointer;
-  }
-
-  &:active {
-    background-color: rgb(72, 39, 192);
-  }
-}
